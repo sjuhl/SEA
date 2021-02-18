@@ -1,0 +1,13 @@
+.Rhistory
+.DS_store
+
+EPSA 2021/
+Manuscript/
+Literature/
+Eurostat Datasets/
+
+Shapefile/Eurostat/
+
+EurostatData.R
+GermanyShapefile.R
+Sandbox.R
