@@ -5,7 +5,7 @@
 
 # clean environment and set working directory
 rm(list=ls())
-setwd("~/Dropbox/Spatial Filtering IV/Eigenvectors")
+setwd("~/Dropbox/Spatial Filtering IV/SEA")
 
 # load necessary packages
 library(spdep)
