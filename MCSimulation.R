@@ -133,6 +133,5 @@ stopCluster(cl)
 
 
 
-
 # SAVE
-#save(sim_out1,sim_out2,input1,input2,p.exp1,p.exp2,nsim,file="./MCExperiment.RData")
+#save(sim_out1,sim_out2,input1,input2,p.exp1,p.exp2,nsim,file="./Data/MCExperiment.RData")

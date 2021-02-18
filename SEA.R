@@ -17,7 +17,7 @@ library(RColorBrewer)
 ger3 <- st_read(dsn="./Shapefile/Germany")
 
 # load Eurostat data
-load("eurostat2017.RData")
+load("./Data/eurostat2017.RData")
 
 # specify spatial matrix
 nb <- poly2nb(ger3$geometry, queen=TRUE, row.names=ger3$NUTS_ID)
