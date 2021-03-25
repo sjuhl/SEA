@@ -138,6 +138,7 @@ dec <- MI.decomp(x=EVs,W=W,nsim=1000)
 round(dec[,-c(4,8,10)],3)
 
 
+
 ### FIGURE 4
 filter <- lmFilter(y=data$medianage,W=W,objfn="MI")
 toplot <- cbind(data$medianage,filter$other$sf,filter$residuals[,"Filtered"])
@@ -185,6 +186,22 @@ round(cor(x=filter.pMI$other$sf,data$medianage),3)
 
 
 
+# variation partitioning
+hist(data$gdp_mio)
+hist(log(data$gdp_mio))
+MI.vec(x=log(data$gdp_mio),W=W)
+y <- log(data$gdp_mio)
+X <- cbind(data$medianage)
+# use spatial filtering to select relevant eigenvectors
+fil <- lmFilter(y=y,x=X,W=W,objfn="MI")
+summary(fil)
+# variation partitioning and Moran spectral randomization
+set.seed(123)
+(var <- vp(y,x=X,evecs=fil$selvecs, msr=1000))
+round(cbind(var$R2,var$adjR2),3)
+
+
+
 # simulating spatial patterns
 sar <- lagsarlm(data$medianage~1,listw=mat2listw(W,style=sty))
 filter <- lmFilter(y=data$medianage,W=W,objfn="MI")
@@ -212,7 +229,7 @@ range(apply(sar.out,1,mean))
 range(apply(filter.out,1,mean))
 
 
-### FIGURE 5
+### FIGURE 6
 seq <- quantile(data$medianage,probs=c(0,1/9,2/9,3/9,4/9,5/9,6/9,7/9,8/9))
 # mpas
 png(paste0("./Figures/simsar.png"),width=450, height=450)
