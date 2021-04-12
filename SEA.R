@@ -75,6 +75,10 @@ all.equal(0, diff(range(EV$vectors[,171])))
 
 
 ### FIGURE 2
+# source functions to calculate local MC
+source("../../spfilteR Package/spfilteR/R/MI.local.R")
+source("../../spfilteR Package/spfilteR/R/utils.R")
+
 # eigenvectors to plot
 EV$moran[80]
 EV$moran[350]
@@ -106,7 +110,8 @@ for(i in seq_len(ncol(EVs))){
         ,side=1,line=-.5,cex=1.5)
   dev.off()
   # histogram
-  localMCs <- localmoran(x=EVs[,i],listw=mat2listw(W))[,"Z.Ii"]
+  #localMCs <- localmoran(x=EVs[,i],listw=mat2listw(W))[,"Z.Ii"]
+  localMCs <- MI.local(x=EVs[,i],W=W)[,"zIi"]
   upper <- qnorm(p=.05/2, lower.tail=F)
   lower <- -upper
   freq_upper <- sum(localMCs>upper)
