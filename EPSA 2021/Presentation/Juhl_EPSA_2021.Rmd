@@ -1,0 +1,19 @@
+---
+title: "Spatial Eigenfunction Modeling of Geo-Referenced Data in the Social Sciences"
+date: "June 24, 2021"
+output:
+  beamer_presentation:
+    includes:
+      in_header:
+        - pres_template/pres_template.sty
+        - pres_template/pkg.tex
+        - title.tex
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Motivation
+
+* start here
