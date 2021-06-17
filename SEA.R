@@ -76,8 +76,8 @@ all.equal(0, diff(range(EV$vectors[,171])))
 
 ### FIGURE 2
 # source functions to calculate local MC
-source("../../spfilteR Package/spfilteR/R/MI.local.R")
-source("../../spfilteR Package/spfilteR/R/utils.R")
+#source("../../spfilteR Package/spfilteR/R/MI.local.R")
+#source("../../spfilteR Package/spfilteR/R/utils.R")
 
 # eigenvectors to plot
 EV$moran[80]

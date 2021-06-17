@@ -5,15 +5,317 @@ output:
   beamer_presentation:
     includes:
       in_header:
-        - pres_template/pres_template.sty
-        - pres_template/pkg.tex
-        - title.tex
+      - pres_template/pres_template.sty
+      - pres_template/pkg.tex
+      - title.tex
+  ioslides_presentation: default
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
+
+# clear working directory
+#rm(list=ls())
+
+# load packages
+#library(spdep)
+#library(spatialreg)
+#library(spfilteR)
+#library(RColorBrewer)
+
+# load shapefile & data
+#ger3 <- st_read(dsn="../../Shapefile/Germany")
+#load("../../Data/eurostat2017.RData")
 ```
 
 ## Motivation
 
-* start here
+* many phenomena of interest to social scientists cluster in space
+  - economic development, regime type, voting behavior, religious beliefs, etc.
+* geographic distribution of variables provide valuable information about the underlying mechanism of interest
+* spatial autocorrelation (SA) causes severe problems for common econometric methods
+
+\vspace{.5cm}
+
+\begin{centering}
+Adequately accounting for spatial structures is necessary to guard against false inferences and to utilize spatial information!
+\end{centering}
+
+
+## This Project
+
+* so far, social scientists use a limited subset of techniques suitable to handle SA
+  - exploratory spatial analysis:
+    - different types of maps
+    - local indicators of SA (LISA)
+  - inferential models
+    - parametric spatial regression models
+
+\pause
+
+* spatial eigenfunction analysis -- particularly Moran eigenvector maps (MEM) -- is a simple yet powerful tool to analyze cross-sectional data structures
+  1. identification \& visualization of complex (multi-scale) spatial patterns
+  2. specification, estimation, and interpretation of inferential models
+  3. partitioning of the variation in $\bm{y}$ into individual components (space, covariates, joined)
+  4. (structure-preserving) simulation of spatially autocorrelated data
+
+
+## SA \& Spatial Eigenfunctions
+
+Spatial eigenfunction alanysis is based on the spectral decomposition of a centered (and symmetric/ symmetrized) connectivity matrix $\bm{W}$:
+\[
+\bm{MWM} = \bm{E\Lambda E}^{-1} = \bm{E\Lambda E}'
+\]
+
+* demeaning projector $\bm{M}=(\bm{I}-\bm{11}'/n)$ -- also ensures that all eigenvectors are orthogonal and uncorrelated
+* $\bm{E}$ are all $n$ eigenvectors
+* $\bm{\Lambda}$ is a diagonal matrix of the eigenvalues $\bm{\lambda}$
+
+
+\textcolor{white}{Direct relationship to the numerator of the global Moran coefficient:}
+
+\[
+\textcolor{white}{MC(\bm{x}) = \frac{n}{\bm{1}'\bm{W1}} \frac{\bm{x}'\bm{MWM}x}{\bm{x}'\bm{Mx}}}
+\]
+
+## SA \& Spatial Eigenfunctions
+
+Spatial eigenfunction alanysis is based on the spectral decomposition of a centered (and symmetric/ symmetrized) connectivity matrix $\bm{W}$:
+\[
+\bm{\textcolor{red}{MWM}} = \bm{E\Lambda E}^{-1} = \bm{E\Lambda E}'
+\]
+
+* demeaning projector $\bm{M}=(\bm{I}-\bm{11}'/n)$ -- also ensures that all eigenvectors are orthogonal and uncorrelated
+* $\bm{E}$ are all $n$ eigenvectors
+* $\bm{\Lambda}$ is a diagonal matrix of the eigenvalues $\bm{\lambda}$
+
+
+Direct relationship to the numerator of the global Moran coefficient:
+
+\[
+MC(\bm{x}) = \frac{n}{\bm{1}'\bm{W1}} \frac{\bm{x}'\bm{\textcolor{red}{MWM}x}}{\bm{x}'\bm{Mx}}
+\]
+
+
+## Eigenvectors as Synthetic Map Patterns
+
+* $\bm{E}$ depict \underline{all} possible distinct and mutually uncorrelated synthetic map patterns permitted by $\bm{W}$
+* corresponding eigenvalues $\bm{\lambda}$ indicate the level of SA
+
+\underline{Example:} $401$ German NUTS-3 regions
+
+\vspace{-.3cm}
+\pause
+
+\begin{minipage}[t]{.32\textwidth}
+\centering
+\tiny
+Eigenvector 1\\
+\includegraphics[scale=.17]{../../Figures/EV1}
+\end{minipage}
+\pause
+\begin{minipage}[t]{.32\textwidth}
+\centering
+\tiny
+Eigenvector 25\\
+\includegraphics[scale=.17]{../../Figures/EV2}
+\end{minipage}
+\pause
+\begin{minipage}[t]{.32\textwidth}
+\centering
+\tiny
+Eigenvector 50\\
+\includegraphics[scale=.17]{../../Figures/EV3}
+\end{minipage}
+
+\vspace{-.3cm}
+\pause
+
+\begin{minipage}[t]{.32\textwidth}
+\centering
+\tiny
+Eigenvector 75\\
+\includegraphics[scale=.17]{../../Figures/EV4}
+\end{minipage}
+\begin{minipage}[t]{.32\textwidth}
+\centering
+\tiny
+Eigenvector 170\\
+\includegraphics[scale=.17]{../../Figures/EV5}
+\end{minipage}
+\begin{minipage}[t]{.32\textwidth}
+\centering
+\tiny
+Eigenvector 401\\
+\includegraphics[scale=.17]{../../Figures/EV6}
+\end{minipage}
+
+
+## \ 
+
+\centering
+\LARGE\bf 1. Identification of Complex Spatial Structures
+
+
+## Identification of Complex SA Structures
+
+* global and local MC statistics might fail to identify mixtures of positive and negative SA
+* \underline{Example:}
+
+\vspace{-.3cm}
+\pause
+
+\begin{minipage}[t]{.32\textwidth}
+\centering
+\tiny
+$\bm{e}_{80}$\\
+\includegraphics[scale=.25]{../../Figures/decomp1}\\[2pt]
+\includegraphics[scale=.25]{../../Figures/hist1}
+\end{minipage}
+\begin{minipage}[t]{.32\textwidth}
+\centering
+\tiny
+$\bm{e}_{350}$\\
+\includegraphics[scale=.25]{../../Figures/decomp2}\\[2pt]
+\includegraphics[scale=.25]{../../Figures/hist2}
+\end{minipage}
+\pause
+\begin{minipage}[t]{.32\textwidth}
+\centering
+\tiny
+$\bm{e}_{80} + \bm{e}_{350}$\\
+\includegraphics[scale=.25]{../../Figures/decomp3}\\[2pt]
+\includegraphics[scale=.25]{../../Figures/hist3}
+\end{minipage}
+
+
+## Identification of Complex SA Structures
+
+* eigenfunction analysis allows researchers to decompose the global MC into positively and negatively autocorrelated parts
+  - global MC = MC$^+$ + MC$^-$
+* decomposing the global MC helps identifying complex non-random spatial patterns
+
+\pause
+
+\underline{Monte Carlo setup:}
+
+* $N=100$ units ordered on a regular $10\times 10$ grid
+* $\bm{W}$ is a symmetric contiguity matrix (rook scheme)
+* $\rho$ ranges from $-.9$ to $.9$ in steps of $.1$
+* \underline{Scenario 1:} simple spatial structure
+  - $\bm{x} = (\bm{I}-\rho\bm{W}_g)^{-1}\bm{u}$
+* \underline{Scenario 2:} mixture of positive and negative SA
+  - $\bm{x} = (\bm{I}-\rho\bm{W}_g)^{-1}\bm{u} + (\bm{I}-(-\rho)\bm{W}_g)^{-1}\bm{v}$
+
+How does the decomposed MC based on spatial eigenfunctions performs compared to the global MC in terms of power?
+
+
+## Identification of Complex SA Structures
+
+\begin{minipage}[t]{.49\textwidth}
+\centering
+\footnotesize
+\underline{Scenario 1:} Simple Spatial Structure\\
+\includegraphics[scale=.39]{../../Figures/power1}
+\end{minipage}
+\pause
+\begin{minipage}[t]{.49\textwidth}
+\centering
+\footnotesize
+\underline{Scenario 2:} Mixture of SA\\
+\includegraphics[scale=.39]{../../Figures/power2}
+\end{minipage}
+
+
+## \ 
+
+\centering
+\LARGE\bf 2. Model Specification, Estimation, and Interpretation
+
+
+## Specification, Estimation, and Interpretation
+
+* SA causes severe problems for common econometric inferential techniques
+* depending on the spatial DGP, SA can lead to
+  1. incorrect standard errors
+  2. biased and inconsistent parameter estimates
+* spatial regression models address these problems but require many more or less rigid assumptions
+  - knowledge of the true DGP
+  - functional form assumptions
+  - exact specification of SA in each regressor
+  - difficult to estimate in a GLM framework
+
+\vspace{.5cm}
+
+* semiparametric spatial filtering methods use Moran eigenvectors to construct a synthetic proxy variable that controls for SA
+
+
+## Specification, Estimation, and Interpretation
+
+* a subset of eigenvectors can be combined to reproduce real-world map patterns
+* \underline{Example:} Median age in German NUTS-3 regions
+
+\vspace{-.3cm}
+
+\begin{minipage}[t]{.32\textwidth}
+\centering
+\tiny
+Observed Median Age\\
+\includegraphics[scale=.25]{../../Figures/filter1}
+\end{minipage}
+\pause
+\begin{minipage}[t]{.32\textwidth}
+\centering
+\tiny
+Synthetic Spatial Filter\\
+\includegraphics[scale=.25]{../../Figures/filter2}
+\end{minipage}
+\pause
+\begin{minipage}[t]{.32\textwidth}
+\centering
+\tiny
+Filtered Residuals\\
+\includegraphics[scale=.25]{../../Figures/filter3}
+\end{minipage}
+
+* a judiciously selected subset of eigenvectors controls for the underlying spatial pattern
+* straightforward parameter estimation \& interpretation
+
+## \ 
+
+\centering
+\LARGE\bf 3. Variation Partitioning
+
+
+## Variation Partitioning
+
+How much variation in $\bm{y}$ is caused by $\bm{X}$?
+
+* a common spatial structure spuriously inflates the share of variation explained by the predictors
+* disentangle the individual contribution of the covariates and the spatial structure
+
+\begin{figure}[htb]
+\centering
+\begin{tikzpicture}
+\draw[thick] (0,0) rectangle (10,1);
+\filldraw[fill=black, opacity=.3, thick] (0,0) rectangle (5,1);
+\filldraw[fill=black!70, opacity=.3, thick] (3,0) rectangle (7,1);
+\draw [thick, decorate, decoration={brace, amplitude=15pt, raise=1ex}]
+  (0,1) -- (10,1) node [midway, yshift=30pt] {Total variation in $\bm{y}$};
+\draw [thick, decorate, decoration={brace, amplitude=15pt, mirror, raise=1ex}]
+(0,0) -- (5,0) node [midway, yshift=-30pt] {Covariates $\bm{X}$};
+\draw [thick, decorate, decoration={brace, amplitude=15pt, mirror, raise=1ex}]
+(3,0) -- (7,0) node [midway, yshift=-30pt] {Space $\bm{E}^*$};
+\draw [thick, decorate, decoration={brace, amplitude=15pt, mirror, raise=1ex}]
+(7,0) -- (10,0) node [midway, yshift=-30pt] {Unexplained};
+\node at (1.5,.5) {\footnotesize [a]};
+\node at (4,.5) {\footnotesize [b]};
+\node at (6,.5) {\footnotesize [c]};
+\node at (8.5,.5) {\footnotesize [d]};
+\end{tikzpicture}
+\end{figure}
+
+## \ 
+
+\centering
+\LARGE\bf 4. (Structure-Preserving) Simulation of Spatially Autocorrelated Data
