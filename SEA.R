@@ -337,3 +337,22 @@ dev.off()
 
 power[round(p.exp2,10)==0.7,c(1,4)]
 
+
+
+
+
+
+
+
+seq <- quantile(data$medianage,probs=c(0,1/9,2/9,3/9,4/9,5/9,6/9,7/9,8/9))
+# mpas
+png(paste0("./Figures/simtrue.png"),width=450, height=450)
+par(oma=c(0,0,0,0),mar=c(1,0,0,0))
+colcode <- sapply(data$medianage,function(x) sum(x >=seq))
+plot(st_geometry(ger3),col=col[colcode])
+range <- range(data$medianage)
+mtext(bquote("Range = ["*.(format(range[1],digits=3,nsmall=3))*";"~
+               .(format(range[2],digits=3,nsmall=3))*"]")
+      ,side=1,line=-.5,cex=1.5)
+dev.off()
+
