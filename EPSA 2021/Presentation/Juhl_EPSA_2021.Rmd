@@ -315,7 +315,104 @@ How much variation in $\bm{y}$ is caused by $\bm{X}$?
 \end{tikzpicture}
 \end{figure}
 
+
+## Variation Partitioning
+
+\begin{itemize}
+\item[1] identify a subset of eigenvectors $\bm{E}^*$ that serve as spatial predictors
+\pause
+\item[2] regress $\bm{y}$ on three sets of predictors and calculate $R^2$
+\begin{itemize}
+  \item[2.1] regress $\bm{y}$ on $\bm{X}$ (fraction $[a+b]$)
+  \item[2.2] regress $\bm{y}$ on $\bm{E}^*$ (fraction $[b+c]$)
+  \item[2.3] regress $\bm{y}$ on $\bm{X}$ and $\bm{E}^*$ (fraction $[a+b+c]$)
+\end{itemize}
+\pause
+\item[3] using the results from step 2, calculate individual fractions
+\begin{itemize}
+  \item[3.1] $[a] = [a+b+c] - [b+c]$
+  \item[3.2] $[b] = [a+b] + [b+c] - [a+b+c]$
+  \item[3.3] $[c] = [a+b+c] - [a+b]$
+  \item[3.4] $[d] = 1 - [a+b+c]$
+\end{itemize}
+\pause
+\item[4] use Moran spectral randomization to calculate $R^2_{adj}$
+\end{itemize}
+
+
+## Variation Partitioning
+
+\underline{Example:}
+
+* regress GDP ($\bm{y}$) on median age ($\bm{X}$)
+* MC of (log) GDP: $0.347$
+* spatial filtering identifies 15 relevant eigenvectors ($\bm{E}^*$)
+
+\pause
+
+\begin{table}[htb]
+\centering
+\begin{threeparttable}
+\begin{tabular}{l|ccc|cccc}
+\multicolumn{1}{c}{\ }& \multicolumn{3}{c}{\underline{Joint Fractions}} & \multicolumn{4}{c}{\underline{Individual Fractions}}\\
+& $[a+b]$ & $[b+c]$ & $[a+b+c]$ & $[a]$ & $[b]$ & $[c]$ & $[d]$\\
+\hline
+$R^2$ & $0.286$ & $0.246$ & $0.523$ & $0.277$ & $0.009$ & $0.237$ & $0.477$ \\
+$R^2_{adj}$ & $0.284$ & $0.217$ & $0.492$ & $0.275$ & $0.009$ & $0.208$ & $0.508$\\
+\hline
+\end{tabular}
+\begin{tablenotes}
+\footnotesize
+\item \underline{Note:} Spatially constrained null model to calculate $R^2_{adj}$ based on $1,000$ random permutations.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
 ## \ 
 
 \centering
 \LARGE\bf 4. (Structure-Preserving) Simulation of Spatially Autocorrelated Data
+
+
+## Simulating Spatial Data
+
+* spatial multipliers $(\bm{I}-\rho\bm{W})^{-1}$ are typically used to simulate SA data
+  - fixed degree of SA across simulations
+  - \underline{does not} preserve spatial structure
+
+* using MEMs for simulation exercises preserves the geographic distribution
+
+\vspace{-.3cm}
+
+\begin{minipage}[t]{.32\textwidth}
+\centering
+\tiny
+Observed Median Age\\
+\includegraphics[scale=.25]{../../Figures/simtrue}
+\end{minipage}
+\pause
+\begin{minipage}[t]{.32\textwidth}
+\centering
+\tiny
+Spatial Multipliers (Mean)\\
+\includegraphics[scale=.25]{../../Figures/simsar}
+\end{minipage}
+\pause
+\begin{minipage}[t]{.32\textwidth}
+\centering
+\tiny
+MEMs (Mean)\\
+\includegraphics[scale=.25]{../../Figures/simfilter}
+\end{minipage}
+
+
+## Conclusion
+
+* spatial eigenfunction analysis complements the statistical repertoire
+* it also helps addressing methodological problems caused by SA
+* MEMs allow researchers to derive additional information from geo-referenced data
+* improves exploratory and inferential analysis, especially w.r.t
+  - identification \& visualization of complex (multi-scale) spatial patterns
+  - specification, estimation, and interpretation of inferential models
+  - variation partitioning
+  - simulation of SA data
