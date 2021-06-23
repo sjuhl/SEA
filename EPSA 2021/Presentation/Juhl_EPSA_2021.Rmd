@@ -13,19 +13,6 @@ output:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
-
-# clear working directory
-#rm(list=ls())
-
-# load packages
-#library(spdep)
-#library(spatialreg)
-#library(spfilteR)
-#library(RColorBrewer)
-
-# load shapefile & data
-#ger3 <- st_read(dsn="../../Shapefile/Germany")
-#load("../../Data/eurostat2017.RData")
 ```
 
 ## Motivation
@@ -200,7 +187,7 @@ $\bm{e}_{80} + \bm{e}_{350}$\\
 \underline{Monte Carlo setup:}
 
 * $N=100$ units ordered on a regular $10\times 10$ grid
-* $\bm{W}$ is a symmetric contiguity matrix (rook scheme)
+* $\bm{W}$ is a row-normal symmetric contiguity matrix (rook scheme)
 * $\rho$ ranges from $-.9$ to $.9$ in steps of $.1$
 * \underline{Scenario 1:} simple spatial structure
   - $\bm{x} = (\bm{I}-\rho\bm{W}_g)^{-1}\bm{u}$
@@ -253,7 +240,7 @@ How does the decomposed MC based on spatial eigenfunctions performs compared to 
 ## Specification, Estimation, and Interpretation
 
 * a subset of eigenvectors can be combined to reproduce real-world map patterns
-* \underline{Example:} Median age in German NUTS-3 regions
+* \underline{Example:} Median age in German NUTS-3 regions (2017)
 
 \vspace{-.3cm}
 
@@ -293,6 +280,8 @@ How much variation in $\bm{y}$ is caused by $\bm{X}$?
 
 * a common spatial structure spuriously inflates the share of variation explained by the predictors
 * disentangle the individual contribution of the covariates and the spatial structure
+
+\pause
 
 \begin{figure}[htb]
 \centering
@@ -345,7 +334,7 @@ How much variation in $\bm{y}$ is caused by $\bm{X}$?
 \underline{Example:}
 
 * regress GDP ($\bm{y}$) on median age ($\bm{X}$)
-* MC of (log) GDP: $0.347$
+* MC of (log) GDP: $0.347$ $(p=0.000)$
 * spatial filtering identifies 15 relevant eigenvectors ($\bm{E}^*$)
 
 \pause
@@ -394,14 +383,14 @@ Observed Median Age\\
 \begin{minipage}[t]{.32\textwidth}
 \centering
 \tiny
-Spatial Multipliers (Mean)\\
+Spatial Multipliers (Means)\\
 \includegraphics[scale=.25]{../../Figures/simsar}
 \end{minipage}
 \pause
 \begin{minipage}[t]{.32\textwidth}
 \centering
 \tiny
-MEMs (Mean)\\
+MEMs (Means)\\
 \includegraphics[scale=.25]{../../Figures/simfilter}
 \end{minipage}
 
@@ -409,10 +398,28 @@ MEMs (Mean)\\
 ## Conclusion
 
 * spatial eigenfunction analysis complements the statistical repertoire
-* it also helps addressing methodological problems caused by SA
-* MEMs allow researchers to derive additional information from geo-referenced data
+  - it helps addressing methodological problems caused by SA
+  - MEMs allow researchers to derive additional information from geo-referenced data
 * improves exploratory and inferential analysis, especially w.r.t
   - identification \& visualization of complex (multi-scale) spatial patterns
   - specification, estimation, and interpretation of inferential models
   - variation partitioning
   - simulation of SA data
+
+
+## Additional Resources
+
+\begin{itemize}
+\item[] \texttt{spfilteR} package:
+\begin{itemize}
+\item[] \underline{CRAN:} \url{https://CRAN.R-project.org/package=spfilteR}
+\item[] \underline{GitHub:} \url{https://github.com/sjuhl/spfilteR}
+\end{itemize}
+\end{itemize}
+
+\vfill
+
+\centering
+**Feedback \& suggestions are highly appreciated!**\
+\href{mailto:sebastian.juhl@gess.uni-mannheim.de}{\texttt{sebastian.juhl@gess.uni-mannheim.de}}\
+\url{www.sebastianjuhl.com}
