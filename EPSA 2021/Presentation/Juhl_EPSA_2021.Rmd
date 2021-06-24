@@ -43,7 +43,7 @@ Adequately accounting for spatial structures is necessary to guard against false
 * spatial eigenfunction analysis -- particularly Moran eigenvector maps (MEM) -- is a simple yet powerful tool to analyze cross-sectional data structures
   1. identification \& visualization of complex (multi-scale) spatial patterns
   2. specification, estimation, and interpretation of inferential models
-  3. partitioning of the variation in $\bm{y}$ into individual components (space, covariates, joined)
+  3. partitioning of the variation in $\bm{y}$ into individual components (space, covariates, joint)
   4. (structure-preserving) simulation of spatially autocorrelated data
 
 
@@ -51,7 +51,7 @@ Adequately accounting for spatial structures is necessary to guard against false
 
 Spatial eigenfunction alanysis is based on the spectral decomposition of a centered (and symmetric/ symmetrized) connectivity matrix $\bm{W}$:
 \[
-\bm{MWM} = \bm{E\Lambda E}^{-1} = \bm{E\Lambda E}'
+\bm{MWM} = \bm{E\Lambda E}^{-1} = \bm{E\Lambda E}' \tag{1}
 \]
 
 * demeaning projector $\bm{M}=(\bm{I}-\bm{11}'/n)$ -- also ensures that all eigenvectors are orthogonal and uncorrelated
@@ -69,7 +69,7 @@ Spatial eigenfunction alanysis is based on the spectral decomposition of a cente
 
 Spatial eigenfunction alanysis is based on the spectral decomposition of a centered (and symmetric/ symmetrized) connectivity matrix $\bm{W}$:
 \[
-\bm{\textcolor{red}{MWM}} = \bm{E\Lambda E}^{-1} = \bm{E\Lambda E}'
+\bm{\textcolor{red}{MWM}} = \bm{E\Lambda E}^{-1} = \bm{E\Lambda E}' \tag{1}
 \]
 
 * demeaning projector $\bm{M}=(\bm{I}-\bm{11}'/n)$ -- also ensures that all eigenvectors are orthogonal and uncorrelated
@@ -80,7 +80,7 @@ Spatial eigenfunction alanysis is based on the spectral decomposition of a cente
 Direct relationship to the numerator of the global Moran coefficient:
 
 \[
-MC(\bm{x}) = \frac{n}{\bm{1}'\bm{W1}} \frac{\bm{x}'\bm{\textcolor{red}{MWM}x}}{\bm{x}'\bm{Mx}}
+MC(\bm{x}) = \frac{n}{\bm{1}'\bm{W1}} \frac{\bm{x}'\bm{\textcolor{red}{MWM}x}}{\bm{x}'\bm{Mx}} \tag{2}
 \]
 
 
@@ -155,14 +155,14 @@ Eigenvector 401\\
 \begin{minipage}[t]{.32\textwidth}
 \centering
 \tiny
-$\bm{e}_{80}$\\
+$\bm{E}_{80}$\\
 \includegraphics[scale=.25]{../../Figures/decomp1}\\[2pt]
 \includegraphics[scale=.25]{../../Figures/hist1}
 \end{minipage}
 \begin{minipage}[t]{.32\textwidth}
 \centering
 \tiny
-$\bm{e}_{350}$\\
+$\bm{E}_{350}$\\
 \includegraphics[scale=.25]{../../Figures/decomp2}\\[2pt]
 \includegraphics[scale=.25]{../../Figures/hist2}
 \end{minipage}
@@ -170,7 +170,7 @@ $\bm{e}_{350}$\\
 \begin{minipage}[t]{.32\textwidth}
 \centering
 \tiny
-$\bm{e}_{80} + \bm{e}_{350}$\\
+$\bm{E}_{80} + \bm{E}_{350}$\\
 \includegraphics[scale=.25]{../../Figures/decomp3}\\[2pt]
 \includegraphics[scale=.25]{../../Figures/hist3}
 \end{minipage}
@@ -231,6 +231,7 @@ How does the decomposed MC based on spatial eigenfunctions performs compared to 
   - functional form assumptions
   - exact specification of SA in each regressor
   - difficult to estimate in a GLM framework
+  - ...
 
 \vspace{.5cm}
 
@@ -239,7 +240,7 @@ How does the decomposed MC based on spatial eigenfunctions performs compared to 
 
 ## Specification, Estimation, and Interpretation
 
-* a subset of eigenvectors can be combined to reproduce real-world map patterns
+* a subset of eigenvectors $\bm{E}^*$ can be combined to reproduce real-world map patterns
 * \underline{Example:} Median age in German NUTS-3 regions (2017)
 
 \vspace{-.3cm}
@@ -366,7 +367,7 @@ $R^2_{adj}$ & $0.284$ & $0.217$ & $0.492$ & $0.275$ & $0.009$ & $0.208$ & $0.508
 ## Simulating Spatial Data
 
 * spatial multipliers $(\bm{I}-\rho\bm{W})^{-1}$ are typically used to simulate SA data
-  - fixed degree of SA across simulations
+  - fixed degree of SA across simulations (controlled by $\rho$)
   - \underline{does not} preserve spatial structure
 
 * using MEMs for simulation exercises preserves the geographic distribution
