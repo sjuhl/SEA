@@ -326,7 +326,7 @@ How much variation in $\bm{y}$ is caused by $\bm{X}$?
   \item[3.4] $[d] = 1 - [a+b+c]$
 \end{itemize}
 \pause
-\item[4] use Moran spectral randomization to calculate $R^2_{adj}$
+\item[4] use Moran spectral randomization to compute $R^2_{adj}$
 \end{itemize}
 
 
