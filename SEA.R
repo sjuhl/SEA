@@ -73,6 +73,22 @@ all.equal(0, diff(range(EV$vectors[,171])))
 
 
 
+# MC of all eigenvectors
+par(oma=c(6,6.2,0,0))#,mgp=c(3, 2, 0)
+png("./Figures/EV_MC.png",width=400, height=450)
+plot(0,ylim=c(min(EV$moran),max(EV$moran)),xlim=c(1,length(EV$moran))
+     ,axes=F,ann=F,type="n",las=1)
+# EVs
+points(y=EV$moran,x=1:length(EV$moran),pch=16,cex=1)
+abline(h=0,lty=2,cex=.5)
+# axes & labels
+axis(1,cex.axis=1.7)
+axis(2,cex.axis=1.7)
+mtext("Eigenvectors",side=1,line=2.5,outer=F,cex=2)
+mtext("MC",side=2,line=2.5,outer=F,cex=2)
+dev.off()
+
+
 
 ### FIGURE 2
 # source functions to calculate local MC
