@@ -12,6 +12,7 @@ library(spdep)
 library(spatialreg)
 library(spfilteR)
 library(RColorBrewer)
+library(scales)
 
 # read German NUTS 3 regions shapefile
 ger3 <- st_read(dsn="./Shapefile/Germany")
@@ -74,12 +75,12 @@ all.equal(0, diff(range(EV$vectors[,171])))
 
 
 # MC of all eigenvectors
-par(oma=c(6,6.2,0,0))#,mgp=c(3, 2, 0)
+par(oma=c(0,.2,0,0))#,mgp=c(3, 2, 0)
 png("./Figures/EV_MC.png",width=400, height=450)
 plot(0,ylim=c(min(EV$moran),max(EV$moran)),xlim=c(1,length(EV$moran))
      ,axes=F,ann=F,type="n",las=1)
 # EVs
-points(y=EV$moran,x=1:length(EV$moran),pch=16,cex=1)
+points(y=EV$moran,x=1:length(EV$moran),pch=18,cex=.8,col=alpha("black",.8))
 abline(h=0,lty=2,cex=.5)
 # axes & labels
 axis(1,cex.axis=1.7)
