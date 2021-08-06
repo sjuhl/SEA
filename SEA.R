@@ -164,6 +164,8 @@ round(dec[,-c(4,8,10)],3)
 ### FIGURE 4
 filter <- lmFilter(y=data$medianage,W=W,objfn="MI")
 toplot <- cbind(data$medianage,filter$other$sf,filter$residuals[,"Filtered"])
+MCs <- c(filter$moran["Initial","Observed"],NA,filter$moran["Filtered","Observed"])
+pvals <- c(filter$moran["Initial","p-value"],NA,filter$moran["Filtered","p-value"])
 text <- c("Median Age","Spatial Filter", "Filtered Residuals")
 # plot
 for(i in seq_len(ncol(toplot))){
@@ -171,8 +173,13 @@ for(i in seq_len(ncol(toplot))){
   colcode <- sapply(toplot[,i],function(x) sum(x >=seq))
   # map
   png(paste0("./Figures/filter",i,".png"),width=400, height=450)
-  par(oma=c(0,0,0,0),mar=c(0,0,0,0))
+  par(oma=c(0,0,0,0),mar=c(1,0,0,0))
   plot(st_geometry(ger3),col=col[colcode])
+  if(i!=2){
+    mtext(bquote("MC ="~.(format(MCs[i],digits=3))~~~
+                   "("*italic("p")~"="~.(format(round(pvals[i],10),nsmall=3,digits=3))*")")
+          ,side=1,line=-.5,cex=1.5)
+  }
   dev.off()
 }
 
