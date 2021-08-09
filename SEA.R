@@ -45,6 +45,18 @@ col <- brewer.pal(n=9, "Purples")
 
 
 ### FIGURE 1
+# empty figure
+png(paste0("./Figures/empty.png"),width=400, height=450)
+par(oma=c(0,0,0,0),mar=c(1,0,0,0))
+plot(st_geometry(ger3),col="white",border="white")
+dev.off()
+
+# plain map of Germany
+png(paste0("./Figures/GER_plain.png"),width=400, height=450)
+par(oma=c(0,0,0,0),mar=c(1,0,0,0))
+plot(st_geometry(ger3),col="white")
+dev.off()
+
 # eigenvectors to plot
 evs <- c(1,25,50,75,170,401)
 
