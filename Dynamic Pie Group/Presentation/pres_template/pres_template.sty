@@ -1,0 +1,69 @@
+%%%%%%%%%%%%%%%%
+% Style
+%%%%%%%%%%%%%%%%
+
+% pkg for textblock
+\usepackage{textpos}
+
+% Define Mannheim Beamer Theme (based on Madrid Theme)
+\mode<presentation>{
+  \usetheme{Madrid}
+  \usecolortheme{default}
+  \usefonttheme{serif}  % or try serif
+  \setbeamertemplate{navigation symbols}{}
+  \setbeamertemplate{caption}[numbered]
+} 
+  
+% Footline
+\setbeamertemplate{footline}
+       {
+      \leavevmode%
+      \hbox{%
+      \begin{beamercolorbox}[wd=.33333\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
+        \usebeamerfont{author in head/foot} Sebastian Juhl
+      \end{beamercolorbox}%
+      \begin{beamercolorbox}[wd=.33333\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
+        \usebeamerfont{title in head/foot}\event
+     \end{beamercolorbox}%
+      \begin{beamercolorbox}[wd=.33333\paperwidth,ht=2.25ex,dp=1ex,right]{date in head/foot}%
+        \usebeamerfont{date in head/foot}\insertshortdate{}\hspace*{2em}
+      \end{beamercolorbox}}%
+      \vskip0pt%
+    }
+ 
+% Colors
+\definecolor{mannheimBlue}{cmyk}{1,.6,.1,.6}
+
+\setbeamercolor*{normal text}{fg=mannheimBlue,bg=white}
+\setbeamercolor*{alerted text}{fg=red}
+\setbeamercolor*{structure}{fg=mannheimBlue, bg=white}
+\setbeamercolor{button}{bg=mannheimBlue,fg=white}
+
+\setbeamerfont{alerted text}{series=\bfseries}
+
+\setbeamercolor*{palette primary}{fg=white,bg=mannheimBlue}
+\setbeamercolor*{palette secondary}{fg=mannheimBlue,bg=white}
+\setbeamercolor*{palette tertiary}{fg=white,bg=mannheimBlue}
+
+
+\setbeamercolor{titlelike}{fg=white, bg=mannheimBlue}
+\setbeamercolor{frametitle}{fg=white, bg=mannheimBlue}
+
+
+\setbeamercolor*{palette sidebar primary}{fg=black}
+\setbeamercolor*{palette sidebar secondary}{fg=black}
+\setbeamercolor*{palette sidebar tertiary}{fg=black}
+
+\setbeamercolor*{item projected}{fg=white,bg=mannheimBlue}
+
+\setbeamercolor{block title}{fg=white,bg=mannheimBlue}
+\setbeamercolor{block body}{parent=normal text,use=block title,bg=white}
+\setbeamerfont{block title}{series=\bfseries}
+
+
+
+\addtobeamertemplate{frametitle}{}{%
+\begin{textblock*}{10.1cm}(.822\textwidth,-1cm)
+\includegraphics[width=.26\textwidth]{pres_template/Logo.jpg}
+\end{textblock*}}
+
